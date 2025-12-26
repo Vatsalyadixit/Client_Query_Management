@@ -96,7 +96,6 @@ streamlit run web_page.py
 - SLA-based query prioritization (Fast / Slow)
 - Email notifications
 - Admin-level dashboard
-- Cloud deployment
 
 ---
 
