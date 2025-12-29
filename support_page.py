@@ -130,7 +130,7 @@ def support_page():
 
 
          # Service efficiency analysis
-         resolved_df = df[df["closed"].notnull()].copy() # Calculating resolution time for closed queries
+        resolved_df = df[df["closed"].notnull()].copy() # Calculating resolution time for closed queries
 
         if not resolved_df.empty:
 
@@ -143,4 +143,5 @@ def support_page():
         st.bar_chart(avg_resolution)
 
     conn.close()
+
 
