@@ -129,17 +129,18 @@ def support_page():
             st.info("No data available for selected filter")
 
 
-        # Service efficiency analysis
-        st.subheader("Queries Taking More Time to Resolve")
-
-        resolved_df = df[df["closed"].notnull()].copy()
+         # Service efficiency analysis
+         resolved_df = df[df["closed"].notnull()].copy() # Calculating resolution time for closed queries
 
         if not resolved_df.empty:
 
-            resolved_df["resolution_days"] = (pd.to_datetime(resolved_df["closed"]) - pd.to_datetime(resolved_df["opened"])).dt.days
+            resolved_df["resolution_days"] = (pd.to_datetime(resolved_df["closed"])-pd.to_datetime(resolved_df["opened"])).dt.days
 
-            slow_queries = resolved_df.sort_values(by="resolution_days", ascending=False).head(5)
+        # Grouping by query heading and calculating average resolution time
+        avg_resolution = (resolved_df.groupby("heading")["resolution_days"].mean().sort_values(ascending=False).head(5))
 
-            st.bar_chart(slow_queries.set_index("heading")["resolution_days"])
+        st.subheader("Queries Taking More Time to Resolve (Average Days)")
+        st.bar_chart(avg_resolution)
 
     conn.close()
+
